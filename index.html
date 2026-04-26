@@ -15,9 +15,7 @@
   --bg: #f3f4f6;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -33,13 +31,8 @@ header {
   text-align: center;
 }
 
-header h1 {
-  margin: 0;
-  font-size: 32px;
-}
-
 main {
-  width: min(1200px, 94%);
+  width: min(1250px, 96%);
   margin: 24px auto;
   background: white;
   padding: 24px;
@@ -47,29 +40,20 @@ main {
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
 }
 
-h2 {
-  margin-top: 0;
-}
-
 button {
   background: var(--blue);
   color: white;
   border: none;
   padding: 12px 18px;
-  margin: 8px 4px;
   border-radius: 10px;
   cursor: pointer;
-  font-size: 15px;
   font-weight: bold;
+  margin-top: 10px;
 }
 
-button:hover {
-  background: #1d4ed8;
-}
+button:hover { background: #1d4ed8; }
 
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 
 .option {
   width: 100%;
@@ -79,15 +63,8 @@ button:hover {
   margin: 10px 0;
 }
 
-.option.correct {
-  background: #bbf7d0;
-  border: 2px solid var(--green);
-}
-
-.option.wrong {
-  background: #fecaca;
-  border: 2px solid var(--red);
-}
+.option.correct { background: #bbf7d0; }
+.option.wrong { background: #fecaca; }
 
 .feedback {
   margin-top: 16px;
@@ -109,7 +86,6 @@ button:hover {
   height: 100%;
   width: 0%;
   background: var(--blue);
-  transition: width 0.3s;
 }
 
 .tip {
@@ -117,13 +93,12 @@ button:hover {
   border-left: 6px solid var(--blue);
   padding: 14px;
   border-radius: 12px;
-  margin: 16px 0;
 }
 
 .canvas {
   display: grid;
-  grid-template-columns: 1.1fr 1.1fr 1.4fr 1.1fr 1.1fr;
-  grid-template-rows: minmax(160px, auto) minmax(160px, auto) minmax(130px, auto);
+  grid-template-columns: 1.1fr 1.1fr 1.3fr 1.1fr 1.1fr;
+  grid-template-rows: 180px 180px 135px;
   gap: 8px;
   margin-top: 20px;
 }
@@ -132,51 +107,46 @@ button:hover {
   border: 2px dashed #94a3b8;
   border-radius: 14px;
   padding: 10px;
-  min-height: 140px;
+  overflow-y: auto;
 }
 
 .block h3 {
   margin: 0 0 8px;
-  font-size: 15px;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-  padding-bottom: 5px;
+  font-size: 14px;
 }
 
-/* Infraestructura */
-.socios,
-.actividades,
-.recursos {
+.socios { grid-column: 1; grid-row: 1 / 3; }
+.actividades { grid-column: 2; grid-row: 1; }
+.recursos { grid-column: 2; grid-row: 2; }
+.valor { grid-column: 3; grid-row: 1 / 3; }
+.relaciones { grid-column: 4; grid-row: 1; }
+.canales { grid-column: 4; grid-row: 2; }
+.clientes { grid-column: 5; grid-row: 1 / 3; }
+.costes { grid-column: 1 / 4; grid-row: 3; }
+.ingresos { grid-column: 4 / 6; grid-row: 3; }
+
+.socios, .actividades, .recursos {
   background: #dbeafe;
   border-color: #3b82f6;
 }
 
-/* Valor */
 .valor {
   background: #ffedd5;
   border-color: #f97316;
 }
 
-/* Clientes */
-.relaciones,
-.canales,
-.clientes {
+.relaciones, .canales, .clientes {
   background: #ede9fe;
   border-color: #8b5cf6;
 }
 
-/* Finanzas */
-.ingresos,
-.costes {
+.ingresos, .costes {
   background: #dcfce7;
   border-color: #22c55e;
 }
 
-.wide {
-  grid-column: span 2;
-}
-
 .cards {
-  margin-top: 22px;
+  margin-top: 20px;
   padding: 16px;
   background: #e5e7eb;
   border-radius: 14px;
@@ -192,45 +162,70 @@ button:hover {
   cursor: grab;
   box-shadow: 0 2px 5px rgba(0,0,0,0.12);
   font-size: 14px;
-  max-width: 260px;
 }
 
-.card.dragging {
-  opacity: 0.4;
-}
+.card.dragging { opacity: 0.45; }
 
 .correct-card {
-  background: #bbf7d0;
-  border-color: var(--green);
+  background: #bbf7d0 !important;
+  border-color: #16a34a;
 }
 
 .wrong-card {
-  background: #fecaca;
-  border-color: var(--red);
+  background: #fecaca !important;
+  border-color: #dc2626;
 }
 
-.score-box {
-  background: #ecfdf5;
-  padding: 16px;
-  border-radius: 14px;
-  border-left: 6px solid var(--green);
+textarea, input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
 }
 
 textarea {
-  width: 100%;
-  height: 140px;
-  padding: 12px;
-  border-radius: 10px;
-  font-size: 15px;
+  height: 150px;
+}
+
+.ranking-card {
+  margin-top: 20px;
+  padding: 24px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #1e293b, #334155);
+  color: white;
+  text-align: center;
+}
+
+.ranking-card h2 {
+  color: white;
+  font-size: 32px;
+}
+
+.badge {
+  display: inline-block;
+  background: #facc15;
+  color: #111827;
+  padding: 8px 12px;
+  border-radius: 999px;
+  margin: 6px;
+  font-weight: bold;
+}
+
+.ebau-box {
+  background: #f8fafc;
+  border: 2px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 16px;
+  margin-top: 16px;
 }
 
 @media (max-width: 900px) {
-  .canvas {
-    grid-template-columns: 1fr;
-  }
-
-  .wide {
-    grid-column: span 1;
+  .canvas { display: block; }
+  .block {
+    min-height: 130px;
+    margin-bottom: 10px;
   }
 }
 </style>
@@ -248,18 +243,19 @@ textarea {
 <section id="intro">
   <h2>Antes de empezar</h2>
 
-  <p>Este reto tiene tres fases:</p>
+  <label>Escribe tu nombre:</label>
+  <input id="student-name" placeholder="Nombre y apellidos">
+
   <ol>
-    <li>Preguntas rápidas</li>
-    <li>Construcción de un Canvas</li>
-    <li>Corrección de un Canvas incorrecto</li>
+    <li>Preguntas rápidas.</li>
+    <li>Construcción de un Canvas.</li>
+    <li>Corrección de un Canvas incorrecto.</li>
+    <li>Pregunta competencial final.</li>
   </ol>
 
   <div class="tip">
-    <strong>Consejo:</strong>
-    no coloques las tarjetas de memoria.
-    Pregúntate siempre:
-    “¿Qué función cumple esto dentro del modelo de negocio?”
+    No coloques las tarjetas de memoria. Pregúntate siempre:
+    <strong>¿Qué función cumple esto dentro del modelo de negocio?</strong>
   </div>
 
   <button onclick="startQuiz()">Empezar reto</button>
@@ -267,8 +263,8 @@ textarea {
 
 <section id="quiz" class="hidden">
   <h2>Fase 1: Preguntas rápidas</h2>
-
   <p id="question-counter"></p>
+
   <div class="progress">
     <div class="progress-bar" id="progress-bar"></div>
   </div>
@@ -277,129 +273,84 @@ textarea {
   <div id="options"></div>
 
   <div id="quiz-feedback" class="feedback hidden"></div>
-
-  <button id="next-question" class="hidden" onclick="nextQuestion()">
-    Siguiente
-  </button>
+  <button id="next-question" class="hidden" onclick="nextQuestion()">Siguiente</button>
 </section>
 
 <section id="phase2" class="hidden">
   <h2>Fase 2: Construye el Canvas</h2>
+  <p>Empresa ficticia: <strong>FreshBreak</strong>, una cafetería cercana a un instituto.</p>
 
-  <p>
-    Empresa ficticia:
-    <strong>FreshBreak</strong>,
-    una cafetería cerca de un instituto que vende desayunos saludables,
-    café, zumos y bocadillos.
-  </p>
-
-  <div class="canvas">
-
-    <div class="block socios" data-category="socios">
-      <h3>Socios clave</h3>
-    </div>
-
-    <div class="block actividades" data-category="actividades">
-      <h3>Actividades clave</h3>
-    </div>
-
-    <div class="block valor" data-category="valor">
-      <h3>Propuesta de valor</h3>
-    </div>
-
-    <div class="block relaciones" data-category="relaciones">
-      <h3>Relaciones con clientes</h3>
-    </div>
-
-    <div class="block clientes" data-category="clientes">
-      <h3>Segmentos de clientes</h3>
-    </div>
-
-    <div class="block recursos" data-category="recursos">
-      <h3>Recursos clave</h3>
-    </div>
-
-    <div class="block canales wide" data-category="canales">
-      <h3>Canales</h3>
-    </div>
-
-    <div class="block ingresos wide" data-category="ingresos">
-      <h3>Fuentes de ingresos</h3>
-    </div>
-
-    <div class="block costes wide" data-category="costes">
-      <h3>Estructura de costes</h3>
-    </div>
-
+  <div class="canvas" id="canvas-phase2">
+    <div class="block socios" data-category="socios"><h3>Socios clave</h3></div>
+    <div class="block actividades" data-category="actividades"><h3>Actividades clave</h3></div>
+    <div class="block recursos" data-category="recursos"><h3>Recursos clave</h3></div>
+    <div class="block valor" data-category="valor"><h3>Propuesta de valor</h3></div>
+    <div class="block relaciones" data-category="relaciones"><h3>Relaciones con clientes</h3></div>
+    <div class="block canales" data-category="canales"><h3>Canales</h3></div>
+    <div class="block clientes" data-category="clientes"><h3>Segmentos de clientes</h3></div>
+    <div class="block costes" data-category="costes"><h3>Estructura de costes</h3></div>
+    <div class="block ingresos" data-category="ingresos"><h3>Fuentes de ingresos</h3></div>
   </div>
 
   <div class="cards" id="cards-phase2">
-    <h3>Tarjetas para colocar</h3>
+    <h3>Tarjetas</h3>
   </div>
 
   <button onclick="checkPhase2()">Comprobar fase 2</button>
-
   <div id="phase2-feedback" class="feedback hidden"></div>
 </section>
 
 <section id="phase3" class="hidden">
   <h2>Fase 3: Detective Canvas</h2>
-
-  <p>
-    Este Canvas ya está completado,
-    pero contiene errores.
-    Muévelos al bloque correcto.
-  </p>
+  <p>Este Canvas pertenece a <strong>Netflix</strong>, pero contiene errores. Corrígelo.</p>
 
   <div class="canvas" id="canvas-phase3">
-
-    <div class="block socios" data-category="socios">
-      <h3>Socios clave</h3>
-    </div>
-
-    <div class="block actividades" data-category="actividades">
-      <h3>Actividades clave</h3>
-    </div>
-
-    <div class="block valor" data-category="valor">
-      <h3>Propuesta de valor</h3>
-    </div>
-
-    <div class="block relaciones" data-category="relaciones">
-      <h3>Relaciones con clientes</h3>
-    </div>
-
-    <div class="block clientes" data-category="clientes">
-      <h3>Segmentos de clientes</h3>
-    </div>
-
-    <div class="block recursos" data-category="recursos">
-      <h3>Recursos clave</h3>
-    </div>
-
-    <div class="block canales wide" data-category="canales">
-      <h3>Canales</h3>
-    </div>
-
-    <div class="block ingresos wide" data-category="ingresos">
-      <h3>Fuentes de ingresos</h3>
-    </div>
-
-    <div class="block costes wide" data-category="costes">
-      <h3>Estructura de costes</h3>
-    </div>
-
+    <div class="block socios" data-category="socios"><h3>Socios clave</h3></div>
+    <div class="block actividades" data-category="actividades"><h3>Actividades clave</h3></div>
+    <div class="block recursos" data-category="recursos"><h3>Recursos clave</h3></div>
+    <div class="block valor" data-category="valor"><h3>Propuesta de valor</h3></div>
+    <div class="block relaciones" data-category="relaciones"><h3>Relaciones con clientes</h3></div>
+    <div class="block canales" data-category="canales"><h3>Canales</h3></div>
+    <div class="block clientes" data-category="clientes"><h3>Segmentos de clientes</h3></div>
+    <div class="block costes" data-category="costes"><h3>Estructura de costes</h3></div>
+    <div class="block ingresos" data-category="ingresos"><h3>Fuentes de ingresos</h3></div>
   </div>
 
   <button onclick="checkPhase3()">Comprobar fase 3</button>
-
   <div id="phase3-feedback" class="feedback hidden"></div>
+</section>
+
+<section id="ebau" class="hidden">
+  <h2>Fase 4: Pregunta competencial tipo EBAU</h2>
+
+  <div class="ebau-box">
+    <p>
+      Netflix decide lanzar un plan más barato con anuncios para atraer a clientes sensibles al precio.
+    </p>
+    <p><strong>Pregunta:</strong> ¿Qué bloques del Business Model Canvas se ven afectados principalmente?</p>
+
+    <button onclick="answerEbau(0)">Solo estructura de costes</button>
+    <button onclick="answerEbau(1)">Segmentos de clientes, propuesta de valor y fuentes de ingresos</button>
+    <button onclick="answerEbau(2)">Solo socios clave</button>
+    <button onclick="answerEbau(3)">Solo recursos clave</button>
+  </div>
+
+  <div id="ebau-feedback" class="feedback hidden"></div>
 </section>
 
 <section id="result" class="hidden">
   <h2>Resultado final</h2>
 
-  <div class="score-box" id="final-score"></div>
+  <div id="final-score" class="feedback"></div>
+
+  <div id="ranking-card" class="ranking-card">
+    <h2 id="ranking-title">Reto Canvas completado</h2>
+    <p id="ranking-name"></p>
+    <p id="ranking-score"></p>
+    <div id="ranking-badges"></div>
+  </div>
+
+  <p><strong>Para ranking de clase:</strong> haz una captura de esta tarjeta y súbela donde indique el profesor.</p>
 
   <h3>Resumen para entregar</h3>
   <textarea id="student-report" readonly></textarea>
@@ -411,69 +362,121 @@ textarea {
 let quizScore = 0;
 let phase2Score = 0;
 let phase3Score = 0;
+let ebauScore = 0;
 let currentQuestion = 0;
+let phase2Loaded = false;
+let phase3Loaded = false;
+
+let categoryErrors = {
+  socios: 0,
+  actividades: 0,
+  recursos: 0,
+  valor: 0,
+  relaciones: 0,
+  canales: 0,
+  clientes: 0,
+  costes: 0,
+  ingresos: 0
+};
+
+const categoryNames = {
+  socios: "socios clave",
+  actividades: "actividades clave",
+  recursos: "recursos clave",
+  valor: "propuesta de valor",
+  relaciones: "relaciones con clientes",
+  canales: "canales",
+  clientes: "segmentos de clientes",
+  costes: "estructura de costes",
+  ingresos: "fuentes de ingresos"
+};
 
 const questions = [
-{
-  text: "¿Para qué sirve principalmente el Business Model Canvas?",
-  options: [
-    "Para calcular impuestos",
-    "Para representar visualmente cómo una empresa crea, entrega y captura valor",
-    "Para hacer balances contables",
-    "Para diseñar un logotipo"
-  ],
-  correct: 1,
-  feedback: "El Canvas sirve para visualizar cómo funciona un modelo de negocio."
-},
-{
-  text: "¿Qué bloque responde a la pregunta: '¿A quién vendemos?'",
-  options: [
-    "Segmentos de clientes",
-    "Recursos clave",
-    "Socios clave",
-    "Costes"
-  ],
-  correct: 0,
-  feedback: "Segmentos de clientes identifica a quién va dirigida la oferta."
-},
-{
-  text: "Instagram suele ser...",
-  options: [
-    "Un cliente",
-    "Un canal",
-    "Un ingreso",
-    "Un coste"
-  ],
-  correct: 1,
-  feedback: "Instagram suele ser un canal de comunicación y venta."
-}
+  {
+    text: "¿Para qué sirve principalmente el Business Model Canvas?",
+    options: [
+      "Para calcular los impuestos",
+      "Para representar visualmente cómo una empresa crea y captura valor",
+      "Para hacer balances",
+      "Para diseñar un logotipo"
+    ],
+    correct: 1,
+    feedback: "El Canvas permite visualizar el modelo de negocio."
+  },
+  {
+    text: "¿Qué bloque responde a: '¿A quién vendemos?'",
+    options: ["Segmentos de clientes", "Recursos clave", "Socios clave", "Costes"],
+    correct: 0,
+    feedback: "Ese bloque es Segmentos de clientes."
+  },
+  {
+    text: "Instagram suele ser...",
+    options: ["Un cliente", "Un canal", "Un ingreso", "Un coste"],
+    correct: 1,
+    feedback: "Instagram suele funcionar como canal."
+  },
+  {
+    text: "La propuesta de valor explica...",
+    options: [
+      "Qué problema resuelve la empresa",
+      "Qué alquiler paga",
+      "Qué impuestos tiene",
+      "Qué proveedores usa"
+    ],
+    correct: 0,
+    feedback: "La propuesta de valor explica por qué el cliente te elige."
+  },
+  {
+    text: "La venta de entradas en un cine sería...",
+    options: ["Un recurso", "Una fuente de ingresos", "Un socio", "Una actividad"],
+    correct: 1,
+    feedback: "Es una fuente de ingresos."
+  },
+  {
+    text: "El alquiler del local pertenece a...",
+    options: ["Propuesta de valor", "Estructura de costes", "Canales", "Clientes"],
+    correct: 1,
+    feedback: "El alquiler es un coste."
+  },
+  {
+    text: "Los proveedores suelen ser...",
+    options: ["Socios clave", "Clientes", "Canales", "Ingresos"],
+    correct: 0,
+    feedback: "Los proveedores suelen ser socios clave."
+  },
+  {
+    text: "Netflix obtiene ingresos principalmente mediante...",
+    options: ["Crowdfunding", "Suscripción mensual", "Venta de maquinaria", "Publicidad física"],
+    correct: 1,
+    feedback: "Netflix obtiene ingresos principalmente por suscripción."
+  }
 ];
 
 const phase2Cards = [
-{ text: "Estudiantes del instituto", category: "clientes" },
-{ text: "Profesores del centro", category: "clientes" },
-{ text: "Desayunos saludables y rápidos", category: "valor" },
-{ text: "Local físico junto al instituto", category: "canales" },
-{ text: "Instagram para anunciar menús", category: "canales" },
-{ text: "Venta de bocadillos, café y zumos", category: "ingresos" },
-{ text: "Proveedores de pan, fruta y café", category: "socios" },
-{ text: "Preparar alimentos y bebidas", category: "actividades" },
-{ text: "Personal de cafetería", category: "recursos" },
-{ text: "Alquiler del local", category: "costes" },
-{ text: "Compra de materias primas", category: "costes" },
-{ text: "Tarjeta de fidelización", category: "relaciones" }
+  { text: "Estudiantes del instituto", category: "clientes" },
+  { text: "Profesores del centro", category: "clientes" },
+  { text: "Desayunos saludables y rápidos", category: "valor" },
+  { text: "Local físico junto al instituto", category: "canales" },
+  { text: "Instagram para anunciar menús", category: "canales" },
+  { text: "Venta de bocadillos y café", category: "ingresos" },
+  { text: "Proveedores de pan y fruta", category: "socios" },
+  { text: "Preparar alimentos", category: "actividades" },
+  { text: "Personal de cafetería", category: "recursos" },
+  { text: "Alquiler del local", category: "costes" },
+  { text: "Compra de materias primas", category: "costes" },
+  { text: "Tarjeta de fidelización", category: "relaciones" }
 ];
 
 const phase3Placements = [
-{ text: "Instagram", correct: "canales", placed: "clientes" },
-{ text: "Estudiantes", correct: "clientes", placed: "canales" },
-{ text: "Tarjeta de puntos", correct: "relaciones", placed: "costes" },
-{ text: "Proveedores de fruta", correct: "socios", placed: "ingresos" },
-{ text: "Preparar café", correct: "actividades", placed: "socios" },
-{ text: "Venta de desayunos", correct: "ingresos", placed: "valor" },
-{ text: "Alquiler y materias primas", correct: "costes", placed: "recursos" },
-{ text: "Comida rápida y saludable", correct: "valor", placed: "actividades" },
-{ text: "Local y trabajadores", correct: "recursos", placed: "relaciones" }
+  { text: "Usuarios que pagan suscripción", correct: "clientes", placed: "canales" },
+  { text: "Plataforma digital de streaming", correct: "valor", placed: "costes" },
+  { text: "App móvil, Smart TV y web", correct: "canales", placed: "clientes" },
+  { text: "Sistema de recomendaciones", correct: "relaciones", placed: "socios" },
+  { text: "Productoras audiovisuales", correct: "socios", placed: "ingresos" },
+  { text: "Desarrollo tecnológico", correct: "actividades", placed: "valor" },
+  { text: "Servidores y plataforma", correct: "recursos", placed: "relaciones" },
+  { text: "Suscripción mensual", correct: "ingresos", placed: "recursos" },
+  { text: "Costes de producción y licencias", correct: "costes", placed: "actividades" }
 ];
 
 function startQuiz() {
@@ -486,10 +489,10 @@ function showQuestion() {
   const q = questions[currentQuestion];
 
   document.getElementById("question-counter").innerText =
-    "Pregunta " + (currentQuestion + 1) + " de " + questions.length;
+    `Pregunta ${currentQuestion + 1} de ${questions.length}`;
 
   document.getElementById("progress-bar").style.width =
-    (currentQuestion / questions.length * 100) + "%";
+    `${(currentQuestion / questions.length) * 100}%`;
 
   document.getElementById("question-text").innerText = q.text;
 
@@ -525,7 +528,6 @@ function answerQuestion(index, button) {
   const feedback = document.getElementById("quiz-feedback");
   feedback.innerText = q.feedback;
   feedback.classList.remove("hidden");
-
   document.getElementById("next-question").classList.remove("hidden");
 }
 
@@ -535,23 +537,29 @@ function nextQuestion() {
   if (currentQuestion < questions.length) {
     showQuestion();
   } else {
+    document.getElementById("progress-bar").style.width = "100%";
     document.getElementById("quiz").classList.add("hidden");
     document.getElementById("phase2").classList.remove("hidden");
-    loadCards();
+
+    if (!phase2Loaded) {
+      loadPhase2Cards();
+      phase2Loaded = true;
+    }
+
     enableDragAndDrop();
   }
 }
 
-function loadCards() {
+function loadPhase2Cards() {
   const container = document.getElementById("cards-phase2");
 
-  phase2Cards.forEach((card, index) => {
+  phase2Cards.forEach((card, i) => {
     const div = document.createElement("div");
     div.className = "card";
     div.draggable = true;
     div.innerText = card.text;
     div.dataset.category = card.category;
-    div.id = "card-" + index;
+    div.id = "phase2-card-" + i;
     container.appendChild(div);
   });
 }
@@ -561,18 +569,12 @@ function enableDragAndDrop() {
   const blocks = document.querySelectorAll(".block");
 
   cards.forEach(card => {
-    card.addEventListener("dragstart", () => {
-      card.classList.add("dragging");
-    });
-
-    card.addEventListener("dragend", () => {
-      card.classList.remove("dragging");
-    });
+    card.addEventListener("dragstart", () => card.classList.add("dragging"));
+    card.addEventListener("dragend", () => card.classList.remove("dragging"));
   });
 
   blocks.forEach(block => {
     block.addEventListener("dragover", e => e.preventDefault());
-
     block.addEventListener("drop", e => {
       e.preventDefault();
       const dragging = document.querySelector(".dragging");
@@ -581,24 +583,38 @@ function enableDragAndDrop() {
   });
 }
 
+function smartFeedback(card, placedCategory) {
+  const correct = card.dataset.category;
+  const text = card.innerText;
+
+  if (!placedCategory) {
+    return `• "${text}" no está colocado en ningún bloque. Debe ir en ${categoryNames[correct]}.`;
+  }
+
+  if (placedCategory === correct) return "";
+
+  categoryErrors[correct]++;
+
+  return `• "${text}" está en ${categoryNames[placedCategory]}, pero debería ir en ${categoryNames[correct]}. 
+Piensa: ¿describe a quién vendes, cómo llegas al cliente, qué ofreces, cómo ganas dinero o qué necesitas para funcionar?`;
+}
+
 function checkPhase2() {
   let correct = 0;
-  let total = 0;
+  let messages = [];
+  const cards = document.querySelectorAll("#phase2 .card");
 
-  document.querySelectorAll("#phase2 .card").forEach(card => {
+  cards.forEach(card => {
     card.classList.remove("correct-card", "wrong-card");
-    total++;
-
     const parent = card.parentElement;
+    const placed = parent.classList.contains("block") ? parent.dataset.category : null;
 
-    if (
-      parent.classList.contains("block") &&
-      parent.dataset.category === card.dataset.category
-    ) {
+    if (placed === card.dataset.category) {
       correct++;
       card.classList.add("correct-card");
     } else {
       card.classList.add("wrong-card");
+      messages.push(smartFeedback(card, placed));
     }
   });
 
@@ -606,13 +622,12 @@ function checkPhase2() {
 
   const feedback = document.getElementById("phase2-feedback");
   feedback.classList.remove("hidden");
+
   feedback.innerHTML = `
-    <strong>Resultado fase 2:</strong> ${correct}/${total}<br><br>
-    Azul = infraestructura<br>
-    Naranja = propuesta de valor<br>
-    Morado = clientes<br>
-    Verde = parte económica<br><br>
-    <button onclick="goToPhase3()">Pasar a fase 3</button>
+    <strong>Resultado fase 2:</strong> ${correct}/${phase2Cards.length}<br>
+    ${messages.length ? messages.join("<br><br>") : "Todo correcto. Puedes pasar a la siguiente fase."}
+    <br><br>
+    <button onclick="goToPhase3()">Pasar a la fase 3</button>
   `;
 }
 
@@ -620,13 +635,22 @@ function goToPhase3() {
   document.getElementById("phase2").classList.add("hidden");
   document.getElementById("phase3").classList.remove("hidden");
 
-  phase3Placements.forEach((card, index) => {
+  if (!phase3Loaded) {
+    loadPhase3IncorrectCanvas();
+    phase3Loaded = true;
+  }
+
+  enableDragAndDrop();
+}
+
+function loadPhase3IncorrectCanvas() {
+  phase3Placements.forEach((card, i) => {
     const div = document.createElement("div");
     div.className = "card";
     div.draggable = true;
     div.innerText = card.text;
     div.dataset.category = card.correct;
-    div.id = "phase3-" + index;
+    div.id = "phase3-card-" + i;
 
     const wrongBlock = document.querySelector(
       `#phase3 .block[data-category="${card.placed}"]`
@@ -634,28 +658,24 @@ function goToPhase3() {
 
     wrongBlock.appendChild(div);
   });
-
-  enableDragAndDrop();
 }
 
 function checkPhase3() {
   let correct = 0;
-  let total = 0;
+  let messages = [];
+  const cards = document.querySelectorAll("#phase3 .card");
 
-  document.querySelectorAll("#phase3 .card").forEach(card => {
+  cards.forEach(card => {
     card.classList.remove("correct-card", "wrong-card");
-    total++;
-
     const parent = card.parentElement;
+    const placed = parent.classList.contains("block") ? parent.dataset.category : null;
 
-    if (
-      parent.classList.contains("block") &&
-      parent.dataset.category === card.dataset.category
-    ) {
+    if (placed === card.dataset.category) {
       correct++;
       card.classList.add("correct-card");
     } else {
       card.classList.add("wrong-card");
+      messages.push(smartFeedback(card, placed));
     }
   });
 
@@ -663,52 +683,108 @@ function checkPhase3() {
 
   const feedback = document.getElementById("phase3-feedback");
   feedback.classList.remove("hidden");
+
   feedback.innerHTML = `
-    <strong>Resultado fase 3:</strong> ${correct}/${total}<br><br>
-    <button onclick="showFinalResult()">Ver resultado final</button>
+    <strong>Resultado fase 3:</strong> ${correct}/${phase3Placements.length}<br>
+    ${messages.length ? messages.join("<br><br>") : "Has corregido correctamente el Canvas de Netflix."}
+    <br><br>
+    <button onclick="goToEbau()">Pasar a la pregunta competencial</button>
   `;
 }
 
-function showFinalResult() {
+function goToEbau() {
   document.getElementById("phase3").classList.add("hidden");
+  document.getElementById("ebau").classList.remove("hidden");
+}
+
+function answerEbau(option) {
+  const feedback = document.getElementById("ebau-feedback");
+  feedback.classList.remove("hidden");
+
+  if (option === 1) {
+    ebauScore = 2;
+    feedback.innerHTML = `
+      <strong>Correcto.</strong><br>
+      Cambian los segmentos de clientes porque se intenta atraer a usuarios más sensibles al precio.
+      Cambia la propuesta de valor porque el servicio ahora es más barato, pero incluye anuncios.
+      Y cambian las fuentes de ingresos porque además de la suscripción aparece la publicidad.
+      <br><br>
+      <button onclick="showFinalResult()">Ver resultado final</button>
+    `;
+  } else {
+    ebauScore = 0;
+    feedback.innerHTML = `
+      <strong>No del todo.</strong><br>
+      La decisión no afecta solo a un bloque. Al lanzar un plan más barato con anuncios,
+      cambian principalmente los segmentos de clientes, la propuesta de valor y las fuentes de ingresos.
+      <br><br>
+      <button onclick="showFinalResult()">Ver resultado final</button>
+    `;
+  }
+}
+
+function getDiagnosis() {
+  const sorted = Object.entries(categoryErrors)
+    .filter(([cat, errors]) => errors > 0)
+    .sort((a, b) => b[1] - a[1]);
+
+  if (sorted.length === 0) {
+    return "No se detectan dificultades importantes en los bloques del Canvas.";
+  }
+
+  const main = sorted.slice(0, 3).map(([cat]) => categoryNames[cat]);
+
+  return "Bloques que conviene repasar: " + main.join(", ") + ".";
+}
+
+function showFinalResult() {
+  document.getElementById("ebau").classList.add("hidden");
   document.getElementById("result").classList.remove("hidden");
 
-  const total =
-    quizScore +
-    phase2Score +
-    phase3Score;
-
-  const max =
-    questions.length +
-    phase2Cards.length +
-    phase3Placements.length;
+  const studentName = document.getElementById("student-name").value || "Alumno/a";
+  const total = quizScore + phase2Score + phase3Score + ebauScore;
+  const max = questions.length + phase2Cards.length + phase3Placements.length + 2;
 
   let message = "";
+  let badge = "";
 
-  if (total >= max * 0.8) {
-    message = "Buen dominio inicial del Canvas.";
-  } else if (total >= max * 0.55) {
-    message = "Comprensión aceptable, pero conviene repasar.";
+  if (total >= max * 0.85) {
+    message = "Excelente dominio inicial del Business Model Canvas.";
+    badge = "🏆 Maestro/a del Canvas";
+  } else if (total >= max * 0.65) {
+    message = "Buen nivel, aunque conviene repasar algunos bloques.";
+    badge = "✅ Canvas en construcción";
   } else {
-    message = "Necesitas repasar antes del caso práctico.";
+    message = "Necesitas repasar antes del caso práctico en clase.";
+    badge = "🔎 Detective en prácticas";
   }
+
+  const diagnosis = getDiagnosis();
 
   document.getElementById("final-score").innerHTML = `
     <p><strong>Puntuación total:</strong> ${total}/${max}</p>
     <p>${message}</p>
+    <p><strong>Diagnóstico:</strong> ${diagnosis}</p>
   `;
+
+  document.getElementById("ranking-name").innerText = studentName;
+  document.getElementById("ranking-score").innerText = `Puntuación: ${total}/${max}`;
+  document.getElementById("ranking-badges").innerHTML = `<span class="badge">${badge}</span>`;
 
   document.getElementById("student-report").value =
 `Resultado del reto Business Model Canvas
 
-Quiz: ${quizScore}/${questions.length}
-Fase 2: ${phase2Score}/${phase2Cards.length}
-Fase 3: ${phase3Score}/${phase3Placements.length}
+Alumno/a: ${studentName}
 
-Total: ${total}/${max}
+Puntuación quiz: ${quizScore}/${questions.length}
+Puntuación fase 2: ${phase2Score}/${phase2Cards.length}
+Puntuación fase 3: ${phase3Score}/${phase3Placements.length}
+Pregunta competencial: ${ebauScore}/2
 
-Comentario:
-${message}`;
+Puntuación total: ${total}/${max}
+
+Comentario: ${message}
+Diagnóstico: ${diagnosis}`;
 }
 </script>
 
