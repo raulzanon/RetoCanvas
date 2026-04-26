@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reto Business Model Canvas</title>
+
+<style>
+:root {
+  --dark: #1f2933;
+  --blue: #2563eb;
+  --green: #16a34a;
+  --red: #dc2626;
+  --yellow: #facc15;
+  --bg: #f3f4f6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: #111827;
+}
+
+header {
+  background: linear-gradient(135deg, #1f2933, #334155);
+  color: white;
+  padding: 24px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+main {
+  width: min(1200px, 94%);
+  margin: 24px auto;
+  background: white;
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+h2 {
+  margin-top: 0;
+}
+
+button {
+  background: var(--blue);
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  margin: 8px 4px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+.hidden {
+  display: none;
+}
+
+.option {
+  width: 100%;
+  display: block;
+  text-align: left;
+  background: #e0f2fe;
+  margin: 10px 0;
+}
+
+.option.correct {
+  background: #bbf7d0;
+  border: 2px solid var(--green);
+}
+
+.option.wrong {
+  background: #fecaca;
+  border: 2px solid var(--red);
+}
+
+.feedback {
+  margin-top: 16px;
+  padding: 14px;
+  background: #fef9c3;
+  border-left: 6px solid var(--yellow);
+  border-radius: 10px;
+}
+
+.progress {
+  background: #e5e7eb;
+  height: 12px;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 12px 0 20px;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--blue);
+  transition: width 0.3s;
+}
+
+.tip {
+  background: #eff6ff;
+  border-left: 6px solid var(--blue);
+  padding: 14px;
+  border-radius: 12px;
+  margin: 16px 0;
+}
+
+.canvas {
+  display: grid;
+  grid-template-columns: 1.1fr 1.1fr 1.4fr 1.1fr 1.1fr;
+  grid-template-rows: minmax(160px, auto) minmax(160px, auto) minmax(130px, auto);
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.block {
+  border: 2px dashed #94a3b8;
+  border-radius: 14px;
+  padding: 10px;
+  min-height: 140px;
+}
+
+.block h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  padding-bottom: 5px;
+}
+
+/* Infraestructura */
+.socios,
+.actividades,
+.recursos {
+  background: #dbeafe;
+  border-color: #3b82f6;
+}
+
+/* Valor */
+.valor {
+  background: #ffedd5;
+  border-color: #f97316;
+}
+
+/* Clientes */
+.relaciones,
+.canales,
+.clientes {
+  background: #ede9fe;
+  border-color: #8b5cf6;
+}
+
+/* Finanzas */
+.ingresos,
+.costes {
+  background: #dcfce7;
+  border-color: #22c55e;
+}
+
+.wide {
+  grid-column: span 2;
+}
+
+.cards {
+  margin-top: 22px;
+  padding: 16px;
+  background: #e5e7eb;
+  border-radius: 14px;
+}
+
+.card {
+  display: inline-block;
+  background: white;
+  border: 1px solid #cbd5e1;
+  padding: 9px 12px;
+  margin: 5px;
+  border-radius: 999px;
+  cursor: grab;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+  font-size: 14px;
+  max-width: 260px;
+}
+
+.card.dragging {
+  opacity: 0.4;
+}
+
+.correct-card {
+  background: #bbf7d0;
+  border-color: var(--green);
+}
+
+.wrong-card {
+  background: #fecaca;
+  border-color: var(--red);
+}
+
+.score-box {
+  background: #ecfdf5;
+  padding: 16px;
+  border-radius: 14px;
+  border-left: 6px solid var(--green);
+}
+
+textarea {
+  width: 100%;
+  height: 140px;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+@media (max-width: 900px) {
+  .canvas {
+    grid-template-columns: 1fr;
+  }
+
+  .wide {
+    grid-column: span 1;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Reto Business Model Canvas</h1>
+  <p>Comprueba si has entendido cómo funciona un modelo de negocio</p>
+</header>
+
+<main>
+
+<section id="intro">
+  <h2>Antes de empezar</h2>
+
+  <p>Este reto tiene tres fases:</p>
+  <ol>
+    <li>Preguntas rápidas</li>
+    <li>Construcción de un Canvas</li>
+    <li>Corrección de un Canvas incorrecto</li>
+  </ol>
+
+  <div class="tip">
+    <strong>Consejo:</strong>
+    no coloques las tarjetas de memoria.
+    Pregúntate siempre:
+    “¿Qué función cumple esto dentro del modelo de negocio?”
+  </div>
+
+  <button onclick="startQuiz()">Empezar reto</button>
+</section>
+
+<section id="quiz" class="hidden">
+  <h2>Fase 1: Preguntas rápidas</h2>
+
+  <p id="question-counter"></p>
+  <div class="progress">
+    <div class="progress-bar" id="progress-bar"></div>
+  </div>
+
+  <h3 id="question-text"></h3>
+  <div id="options"></div>
+
+  <div id="quiz-feedback" class="feedback hidden"></div>
+
+  <button id="next-question" class="hidden" onclick="nextQuestion()">
+    Siguiente
+  </button>
+</section>
+
+<section id="phase2" class="hidden">
+  <h2>Fase 2: Construye el Canvas</h2>
+
+  <p>
+    Empresa ficticia:
+    <strong>FreshBreak</strong>,
+    una cafetería cerca de un instituto que vende desayunos saludables,
+    café, zumos y bocadillos.
+  </p>
+
+  <div class="canvas">
+
+    <div class="block socios" data-category="socios">
+      <h3>Socios clave</h3>
+    </div>
+
+    <div class="block actividades" data-category="actividades">
+      <h3>Actividades clave</h3>
+    </div>
+
+    <div class="block valor" data-category="valor">
+      <h3>Propuesta de valor</h3>
+    </div>
+
+    <div class="block relaciones" data-category="relaciones">
+      <h3>Relaciones con clientes</h3>
+    </div>
+
+    <div class="block clientes" data-category="clientes">
+      <h3>Segmentos de clientes</h3>
+    </div>
+
+    <div class="block recursos" data-category="recursos">
+      <h3>Recursos clave</h3>
+    </div>
+
+    <div class="block canales wide" data-category="canales">
+      <h3>Canales</h3>
+    </div>
+
+    <div class="block ingresos wide" data-category="ingresos">
+      <h3>Fuentes de ingresos</h3>
+    </div>
+
+    <div class="block costes wide" data-category="costes">
+      <h3>Estructura de costes</h3>
+    </div>
+
+  </div>
+
+  <div class="cards" id="cards-phase2">
+    <h3>Tarjetas para colocar</h3>
+  </div>
+
+  <button onclick="checkPhase2()">Comprobar fase 2</button>
+
+  <div id="phase2-feedback" class="feedback hidden"></div>
+</section>
+
+<section id="phase3" class="hidden">
+  <h2>Fase 3: Detective Canvas</h2>
+
+  <p>
+    Este Canvas ya está completado,
+    pero contiene errores.
+    Muévelos al bloque correcto.
+  </p>
+
+  <div class="canvas" id="canvas-phase3">
+
+    <div class="block socios" data-category="socios">
+      <h3>Socios clave</h3>
+    </div>
+
+    <div class="block actividades" data-category="actividades">
+      <h3>Actividades clave</h3>
+    </div>
+
+    <div class="block valor" data-category="valor">
+      <h3>Propuesta de valor</h3>
+    </div>
+
+    <div class="block relaciones" data-category="relaciones">
+      <h3>Relaciones con clientes</h3>
+    </div>
+
+    <div class="block clientes" data-category="clientes">
+      <h3>Segmentos de clientes</h3>
+    </div>
+
+    <div class="block recursos" data-category="recursos">
+      <h3>Recursos clave</h3>
+    </div>
+
+    <div class="block canales wide" data-category="canales">
+      <h3>Canales</h3>
+    </div>
+
+    <div class="block ingresos wide" data-category="ingresos">
+      <h3>Fuentes de ingresos</h3>
+    </div>
+
+    <div class="block costes wide" data-category="costes">
+      <h3>Estructura de costes</h3>
+    </div>
+
+  </div>
+
+  <button onclick="checkPhase3()">Comprobar fase 3</button>
+
+  <div id="phase3-feedback" class="feedback hidden"></div>
+</section>
+
+<section id="result" class="hidden">
+  <h2>Resultado final</h2>
+
+  <div class="score-box" id="final-score"></div>
+
+  <h3>Resumen para entregar</h3>
+  <textarea id="student-report" readonly></textarea>
+</section>
+
+</main>
+
+<script>
+let quizScore = 0;
+let phase2Score = 0;
+let phase3Score = 0;
+let currentQuestion = 0;
+
+const questions = [
+{
+  text: "¿Para qué sirve principalmente el Business Model Canvas?",
+  options: [
+    "Para calcular impuestos",
+    "Para representar visualmente cómo una empresa crea, entrega y captura valor",
+    "Para hacer balances contables",
+    "Para diseñar un logotipo"
+  ],
+  correct: 1,
+  feedback: "El Canvas sirve para visualizar cómo funciona un modelo de negocio."
+},
+{
+  text: "¿Qué bloque responde a la pregunta: '¿A quién vendemos?'",
+  options: [
+    "Segmentos de clientes",
+    "Recursos clave",
+    "Socios clave",
+    "Costes"
+  ],
+  correct: 0,
+  feedback: "Segmentos de clientes identifica a quién va dirigida la oferta."
+},
+{
+  text: "Instagram suele ser...",
+  options: [
+    "Un cliente",
+    "Un canal",
+    "Un ingreso",
+    "Un coste"
+  ],
+  correct: 1,
+  feedback: "Instagram suele ser un canal de comunicación y venta."
+}
+];
+
+const phase2Cards = [
+{ text: "Estudiantes del instituto", category: "clientes" },
+{ text: "Profesores del centro", category: "clientes" },
+{ text: "Desayunos saludables y rápidos", category: "valor" },
+{ text: "Local físico junto al instituto", category: "canales" },
+{ text: "Instagram para anunciar menús", category: "canales" },
+{ text: "Venta de bocadillos, café y zumos", category: "ingresos" },
+{ text: "Proveedores de pan, fruta y café", category: "socios" },
+{ text: "Preparar alimentos y bebidas", category: "actividades" },
+{ text: "Personal de cafetería", category: "recursos" },
+{ text: "Alquiler del local", category: "costes" },
+{ text: "Compra de materias primas", category: "costes" },
+{ text: "Tarjeta de fidelización", category: "relaciones" }
+];
+
+const phase3Placements = [
+{ text: "Instagram", correct: "canales", placed: "clientes" },
+{ text: "Estudiantes", correct: "clientes", placed: "canales" },
+{ text: "Tarjeta de puntos", correct: "relaciones", placed: "costes" },
+{ text: "Proveedores de fruta", correct: "socios", placed: "ingresos" },
+{ text: "Preparar café", correct: "actividades", placed: "socios" },
+{ text: "Venta de desayunos", correct: "ingresos", placed: "valor" },
+{ text: "Alquiler y materias primas", correct: "costes", placed: "recursos" },
+{ text: "Comida rápida y saludable", correct: "valor", placed: "actividades" },
+{ text: "Local y trabajadores", correct: "recursos", placed: "relaciones" }
+];
+
+function startQuiz() {
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = questions[currentQuestion];
+
+  document.getElementById("question-counter").innerText =
+    "Pregunta " + (currentQuestion + 1) + " de " + questions.length;
+
+  document.getElementById("progress-bar").style.width =
+    (currentQuestion / questions.length * 100) + "%";
+
+  document.getElementById("question-text").innerText = q.text;
+
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML = "";
+
+  q.options.forEach((option, index) => {
+    const btn = document.createElement("button");
+    btn.className = "option";
+    btn.innerText = option;
+    btn.onclick = () => answerQuestion(index, btn);
+    optionsDiv.appendChild(btn);
+  });
+
+  document.getElementById("quiz-feedback").classList.add("hidden");
+  document.getElementById("next-question").classList.add("hidden");
+}
+
+function answerQuestion(index, button) {
+  const q = questions[currentQuestion];
+  const buttons = document.querySelectorAll(".option");
+
+  buttons.forEach(btn => btn.disabled = true);
+
+  if (index === q.correct) {
+    button.classList.add("correct");
+    quizScore++;
+  } else {
+    button.classList.add("wrong");
+    buttons[q.correct].classList.add("correct");
+  }
+
+  const feedback = document.getElementById("quiz-feedback");
+  feedback.innerText = q.feedback;
+  feedback.classList.remove("hidden");
+
+  document.getElementById("next-question").classList.remove("hidden");
+}
+
+function nextQuestion() {
+  currentQuestion++;
+
+  if (currentQuestion < questions.length) {
+    showQuestion();
+  } else {
+    document.getElementById("quiz").classList.add("hidden");
+    document.getElementById("phase2").classList.remove("hidden");
+    loadCards();
+    enableDragAndDrop();
+  }
+}
+
+function loadCards() {
+  const container = document.getElementById("cards-phase2");
+
+  phase2Cards.forEach((card, index) => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.draggable = true;
+    div.innerText = card.text;
+    div.dataset.category = card.category;
+    div.id = "card-" + index;
+    container.appendChild(div);
+  });
+}
+
+function enableDragAndDrop() {
+  const cards = document.querySelectorAll(".card");
+  const blocks = document.querySelectorAll(".block");
+
+  cards.forEach(card => {
+    card.addEventListener("dragstart", () => {
+      card.classList.add("dragging");
+    });
+
+    card.addEventListener("dragend", () => {
+      card.classList.remove("dragging");
+    });
+  });
+
+  blocks.forEach(block => {
+    block.addEventListener("dragover", e => e.preventDefault());
+
+    block.addEventListener("drop", e => {
+      e.preventDefault();
+      const dragging = document.querySelector(".dragging");
+      if (dragging) block.appendChild(dragging);
+    });
+  });
+}
+
+function checkPhase2() {
+  let correct = 0;
+  let total = 0;
+
+  document.querySelectorAll("#phase2 .card").forEach(card => {
+    card.classList.remove("correct-card", "wrong-card");
+    total++;
+
+    const parent = card.parentElement;
+
+    if (
+      parent.classList.contains("block") &&
+      parent.dataset.category === card.dataset.category
+    ) {
+      correct++;
+      card.classList.add("correct-card");
+    } else {
+      card.classList.add("wrong-card");
+    }
+  });
+
+  phase2Score = correct;
+
+  const feedback = document.getElementById("phase2-feedback");
+  feedback.classList.remove("hidden");
+  feedback.innerHTML = `
+    <strong>Resultado fase 2:</strong> ${correct}/${total}<br><br>
+    Azul = infraestructura<br>
+    Naranja = propuesta de valor<br>
+    Morado = clientes<br>
+    Verde = parte económica<br><br>
+    <button onclick="goToPhase3()">Pasar a fase 3</button>
+  `;
+}
+
+function goToPhase3() {
+  document.getElementById("phase2").classList.add("hidden");
+  document.getElementById("phase3").classList.remove("hidden");
+
+  phase3Placements.forEach((card, index) => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.draggable = true;
+    div.innerText = card.text;
+    div.dataset.category = card.correct;
+    div.id = "phase3-" + index;
+
+    const wrongBlock = document.querySelector(
+      `#phase3 .block[data-category="${card.placed}"]`
+    );
+
+    wrongBlock.appendChild(div);
+  });
+
+  enableDragAndDrop();
+}
+
+function checkPhase3() {
+  let correct = 0;
+  let total = 0;
+
+  document.querySelectorAll("#phase3 .card").forEach(card => {
+    card.classList.remove("correct-card", "wrong-card");
+    total++;
+
+    const parent = card.parentElement;
+
+    if (
+      parent.classList.contains("block") &&
+      parent.dataset.category === card.dataset.category
+    ) {
+      correct++;
+      card.classList.add("correct-card");
+    } else {
+      card.classList.add("wrong-card");
+    }
+  });
+
+  phase3Score = correct;
+
+  const feedback = document.getElementById("phase3-feedback");
+  feedback.classList.remove("hidden");
+  feedback.innerHTML = `
+    <strong>Resultado fase 3:</strong> ${correct}/${total}<br><br>
+    <button onclick="showFinalResult()">Ver resultado final</button>
+  `;
+}
+
+function showFinalResult() {
+  document.getElementById("phase3").classList.add("hidden");
+  document.getElementById("result").classList.remove("hidden");
+
+  const total =
+    quizScore +
+    phase2Score +
+    phase3Score;
+
+  const max =
+    questions.length +
+    phase2Cards.length +
+    phase3Placements.length;
+
+  let message = "";
+
+  if (total >= max * 0.8) {
+    message = "Buen dominio inicial del Canvas.";
+  } else if (total >= max * 0.55) {
+    message = "Comprensión aceptable, pero conviene repasar.";
+  } else {
+    message = "Necesitas repasar antes del caso práctico.";
+  }
+
+  document.getElementById("final-score").innerHTML = `
+    <p><strong>Puntuación total:</strong> ${total}/${max}</p>
+    <p>${message}</p>
+  `;
+
+  document.getElementById("student-report").value =
+`Resultado del reto Business Model Canvas
+
+Quiz: ${quizScore}/${questions.length}
+Fase 2: ${phase2Score}/${phase2Cards.length}
+Fase 3: ${phase3Score}/${phase3Placements.length}
+
+Total: ${total}/${max}
+
+Comentario:
+${message}`;
+}
+</script>
+
+</body>
+</html>
