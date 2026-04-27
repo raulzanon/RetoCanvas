@@ -237,6 +237,9 @@ textarea {
   <h1>Reto Business Model Canvas</h1>
   <p>Comprueba si has entendido cómo funciona un modelo de negocio</p>
 </header>
+<div id="timer" style="text-align:center; font-weight:bold; padding:10px; background:#fef3c7;">
+  Tiempo: 00:00
+</div>
 
 <main>
 
@@ -244,7 +247,8 @@ textarea {
   <h2>Antes de empezar</h2>
 
   <label>Escribe tu nombre:</label>
-  <input id="student-name" placeholder="Nombre y apellidos">
+  <input id="student-name" placeholder="Nombre y apellidos" required>
+<p id="name-error" style="color:#dc2626; font-weight:bold;"></p>
 
   <ol>
     <li>Preguntas rápidas.</li>
@@ -364,6 +368,9 @@ let phase2Score = 0;
 let phase3Score = 0;
 let ebauScore = 0;
 let currentQuestion = 0;
+let startTime = null;
+let timerInterval = null;
+let elapsedSeconds = 0;
 let phase2Loaded = false;
 let phase3Loaded = false;
 
@@ -480,9 +487,37 @@ const phase3Placements = [
 ];
 
 function startQuiz() {
+  const nameInput = document.getElementById("student-name");
+  const nameError = document.getElementById("name-error");
+
+  if (!nameInput.value.trim()) {
+    nameError.innerText = "Debes escribir tu nombre antes de empezar.";
+    nameInput.focus();
+    return;
+  }
+
+  nameError.innerText = "";
+
+  startTime = Date.now();
+  timerInterval = setInterval(updateTimer, 1000);
+
   document.getElementById("intro").classList.add("hidden");
   document.getElementById("quiz").classList.remove("hidden");
   showQuestion();
+}
+
+function updateTimer() {
+  elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
+  document.getElementById("timer").innerText =
+    "Tiempo: " + formatTime(elapsedSeconds);
+}
+
+function formatTime(seconds) {
+  const min = Math.floor(seconds / 60);
+  const sec = seconds % 60;
+
+  return String(min).padStart(2, "0") + ":" +
+         String(sec).padStart(2, "0");
 }
 
 function showQuestion() {
@@ -738,6 +773,8 @@ function getDiagnosis() {
 }
 
 function showFinalResult() {
+  clearInterval(timerInterval);
+
   document.getElementById("ebau").classList.add("hidden");
   document.getElementById("result").classList.remove("hidden");
 
@@ -768,8 +805,8 @@ function showFinalResult() {
   `;
 
   document.getElementById("ranking-name").innerText = studentName;
-  document.getElementById("ranking-score").innerText = `Puntuación: ${total}/${max}`;
-  document.getElementById("ranking-badges").innerHTML = `<span class="badge">${badge}</span>`;
+document.getElementById("ranking-score").innerText =
+  `Puntuación: ${total}/${max} | Tiempo: ${formatTime(elapsedSeconds)}`;  document.getElementById("ranking-badges").innerHTML = `<span class="badge">${badge}</span>`;
 
   document.getElementById("student-report").value =
 `Resultado del reto Business Model Canvas
@@ -782,6 +819,7 @@ Puntuación fase 3: ${phase3Score}/${phase3Placements.length}
 Pregunta competencial: ${ebauScore}/2
 
 Puntuación total: ${total}/${max}
+Tiempo empleado: ${formatTime(elapsedSeconds)}
 
 Comentario: ${message}
 Diagnóstico: ${diagnosis}`;
