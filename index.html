@@ -33,7 +33,7 @@ header {
 
 main {
   width: min(1250px, 96%);
-  margin: 24px auto;
+  margin: 12px auto;
   background: white;
   padding: 24px;
   border-radius: 18px;
@@ -98,21 +98,24 @@ button:hover { background: #1d4ed8; }
 .canvas {
   display: grid;
   grid-template-columns: 1.1fr 1.1fr 1.3fr 1.1fr 1.1fr;
-  grid-template-rows: 180px 180px 135px;
-  gap: 8px;
-  margin-top: 20px;
+
+  /* Ajuste dinámico al alto de pantalla */
+  grid-template-rows: 22vh 22vh 14vh;
+
+  gap: 6px;
+  margin-top: 12px;
 }
 
 .block {
   border: 2px dashed #94a3b8;
-  border-radius: 14px;
-  padding: 10px;
+  border-radius: 12px;
+  padding: 8px;
   overflow-y: auto;
 }
 
 .block h3 {
-  margin: 0 0 8px;
-  font-size: 14px;
+  margin: 0 0 6px;
+  font-size: 13px;
 }
 
 .socios { grid-column: 1; grid-row: 1 / 3; }
@@ -146,18 +149,18 @@ button:hover { background: #1d4ed8; }
 }
 
 .cards {
-  margin-top: 20px;
-  padding: 16px;
+  margin-top: 10px;
+  padding: 10px;
   background: #e5e7eb;
-  border-radius: 14px;
+  border-radius: 12px;
 }
 
 .card {
   display: inline-block;
   background: white;
   border: 1px solid #cbd5e1;
-  padding: 9px 12px;
-  margin: 5px;
+  padding: 6px 10px;
+  margin: 4px;
   border-radius: 999px;
   cursor: grab;
   box-shadow: 0 2px 5px rgba(0,0,0,0.12);
@@ -300,8 +303,7 @@ textarea {
     <h3>Tarjetas</h3>
   </div>
 
-  <button onclick="checkPhase2()">Comprobar fase 2</button>
-  <div id="phase2-feedback" class="feedback hidden"></div>
+<button id="check-phase2-btn" onclick="checkPhase2()">Comprobar fase 2</button>  <div id="phase2-feedback" class="feedback hidden"></div>
 </section>
 
 <section id="phase3" class="hidden">
@@ -320,8 +322,7 @@ textarea {
     <div class="block ingresos" data-category="ingresos"><h3>Fuentes de ingresos</h3></div>
   </div>
 
-  <button onclick="checkPhase3()">Comprobar fase 3</button>
-  <div id="phase3-feedback" class="feedback hidden"></div>
+<button id="check-phase3-btn" onclick="checkPhase3()">Comprobar fase 3</button>  <div id="phase3-feedback" class="feedback hidden"></div>
 </section>
 
 <section id="ebau" class="hidden">
@@ -440,10 +441,10 @@ const questions = [
     feedback: "Es una fuente de ingresos."
   },
   {
-    text: "El alquiler del local pertenece a...",
+    text: "El pago de salarios pertenece a...",
     options: ["Propuesta de valor", "Estructura de costes", "Canales", "Clientes"],
     correct: 1,
-    feedback: "El alquiler es un coste."
+    feedback: "El pago de salarios es un coste."
   },
   {
     text: "Los proveedores suelen ser...",
@@ -452,10 +453,10 @@ const questions = [
     feedback: "Los proveedores suelen ser socios clave."
   },
   {
-    text: "Netflix obtiene ingresos principalmente mediante...",
-    options: ["Crowdfunding", "Suscripción mensual", "Venta de maquinaria", "Publicidad física"],
+    text: "Youtube obtiene ingresos principalmente mediante...",
+    options: ["Crowdfunding", "Publicidad", "Venta de maquinaria", "Suscripciones"],
     correct: 1,
-    feedback: "Netflix obtiene ingresos principalmente por suscripción."
+    feedback: "Netflix obtiene ingresos principalmente por publicidad."
   }
 ];
 
@@ -470,8 +471,8 @@ const phase2Cards = [
   { text: "Preparar alimentos", category: "actividades" },
   { text: "Personal de cafetería", category: "recursos" },
   { text: "Alquiler del local", category: "costes" },
-  { text: "Compra de materias primas", category: "costes" },
-  { text: "Tarjeta de fidelización", category: "relaciones" }
+  { text: "Coste de materias primas", category: "costes" },
+  { text: "Opción de pedir por whatsapp para recoger después", category: "relaciones" }
 ];
 
 const phase3Placements = [
@@ -480,7 +481,7 @@ const phase3Placements = [
   { text: "App móvil, Smart TV y web", correct: "canales", placed: "clientes" },
   { text: "Sistema de recomendaciones", correct: "relaciones", placed: "socios" },
   { text: "Productoras audiovisuales", correct: "socios", placed: "ingresos" },
-  { text: "Desarrollo tecnológico", correct: "actividades", placed: "valor" },
+  { text: "Desarrollo de contenido audiovisual", correct: "actividades", placed: "valor" },
   { text: "Servidores y plataforma", correct: "recursos", placed: "relaciones" },
   { text: "Suscripción mensual", correct: "ingresos", placed: "recursos" },
   { text: "Costes de producción y licencias", correct: "costes", placed: "actividades" }
@@ -634,7 +635,26 @@ function smartFeedback(card, placedCategory) {
 Piensa: ¿describe a quién vendes, cómo llegas al cliente, qué ofreces, cómo ganas dinero o qué necesitas para funcionar?`;
 }
 
+function lockPhase(phaseId, buttonId) {
+  const phase = document.getElementById(phaseId);
+  const cards = phase.querySelectorAll(".card");
+  const button = document.getElementById(buttonId);
+
+  cards.forEach(card => {
+    card.draggable = false;
+    card.style.cursor = "not-allowed";
+  });
+
+  if (button) {
+    button.disabled = true;
+    button.style.background = "#9ca3af";
+    button.style.cursor = "not-allowed";
+    button.innerText = "Comprobado";
+  }
+}
+
 function checkPhase2() {
+  lockPhase("phase2", "check-phase2-btn");
   let correct = 0;
   let messages = [];
   const cards = document.querySelectorAll("#phase2 .card");
@@ -696,6 +716,7 @@ function loadPhase3IncorrectCanvas() {
 }
 
 function checkPhase3() {
+  lockPhase("phase3", "check-phase3-btn");
   let correct = 0;
   let messages = [];
   const cards = document.querySelectorAll("#phase3 .card");
@@ -792,7 +813,7 @@ function showFinalResult() {
     message = "Buen nivel, aunque conviene repasar algunos bloques.";
     badge = "✅ Canvas en construcción";
   } else {
-    message = "Necesitas repasar antes del caso práctico en clase.";
+    message = "Necesitas repasar un poco más.";
     badge = "🔎 Detective en prácticas";
   }
 
