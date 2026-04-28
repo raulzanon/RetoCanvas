@@ -355,8 +355,9 @@ textarea {
     <div id="ranking-badges"></div>
   </div>
 
-  <p><strong>Para ranking de clase:</strong> haz una captura de esta tarjeta y súbela donde indique el profesor.</p>
+<p><strong>Entrega final:</strong> descarga el PDF y añádelo a la tarea de Aula Virtual o Classroom.</p>
 
+  <button onclick="generatePDF()">Generar PDF del resultado</button>
   <h3>Resumen para entregar</h3>
   <textarea id="student-report" readonly></textarea>
 </section>
@@ -754,6 +755,14 @@ function goToEbau() {
 }
 
 function answerEbau(option) {
+  const buttons = document.querySelectorAll("#ebau button");
+
+  buttons.forEach(btn => {
+    btn.disabled = true;
+    btn.style.background = "#9ca3af";
+    btn.style.cursor = "not-allowed";
+  });
+
   const feedback = document.getElementById("ebau-feedback");
   feedback.classList.remove("hidden");
 
@@ -844,6 +853,146 @@ Tiempo empleado: ${formatTime(elapsedSeconds)}
 
 Comentario: ${message}
 Diagnóstico: ${diagnosis}`;
+}
+function generatePDF() {
+  const studentName = document.getElementById("student-name").value || "Alumno/a";
+  const total = quizScore + phase2Score + phase3Score + ebauScore;
+  const max = questions.length + phase2Cards.length + phase3Placements.length + 2;
+  const diagnosis = getDiagnosis();
+
+  let advice = "";
+
+  if (diagnosis.includes("canales")) {
+    advice += "Revisa la diferencia entre canales y clientes: los canales son los medios para llegar al cliente, no las personas a las que vendes. ";
+  }
+
+  if (diagnosis.includes("relaciones")) {
+    advice += "Repasa las relaciones con clientes: se refieren a cómo la empresa mantiene y cuida la relación con ellos. ";
+  }
+
+  if (diagnosis.includes("ingresos")) {
+    advice += "Distingue bien ingresos y propuesta de valor: los ingresos explican cómo entra dinero; la propuesta de valor explica por qué te eligen. ";
+  }
+
+  if (diagnosis.includes("costes")) {
+    advice += "Repasa la estructura de costes: recoge los gastos necesarios para que el modelo funcione. ";
+  }
+
+  if (!advice) {
+    advice = "Buen trabajo. Para mejorar, intenta aplicar el Canvas a una empresa real y justificar cada bloque con tus propias palabras.";
+  }
+
+  const printWindow = window.open("", "_blank");
+
+  printWindow.document.write(`
+    <html>
+    <head>
+      <title>Resultado Business Model Canvas</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          padding: 40px;
+          color: #111827;
+        }
+
+        h1 {
+          color: #1f2933;
+          border-bottom: 3px solid #2563eb;
+          padding-bottom: 10px;
+        }
+
+        .box {
+          border: 1px solid #cbd5e1;
+          border-radius: 10px;
+          padding: 16px;
+          margin: 16px 0;
+          background: #f8fafc;
+        }
+
+        .score {
+          font-size: 22px;
+          font-weight: bold;
+          color: #2563eb;
+        }
+
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 12px;
+        }
+
+        th, td {
+          border: 1px solid #cbd5e1;
+          padding: 10px;
+          text-align: left;
+        }
+
+        th {
+          background: #e5e7eb;
+        }
+
+        .footer {
+          margin-top: 30px;
+          font-size: 13px;
+          color: #4b5563;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>Resultado del reto Business Model Canvas</h1>
+
+      <div class="box">
+        <p><strong>Alumno/a:</strong> ${studentName}</p>
+        <p><strong>Tiempo empleado:</strong> ${formatTime(elapsedSeconds)}</p>
+        <p class="score">Puntuación total: ${total}/${max}</p>
+      </div>
+
+      <div class="box">
+        <h2>Puntuación por fases</h2>
+        <table>
+          <tr>
+            <th>Fase</th>
+            <th>Puntuación</th>
+          </tr>
+          <tr>
+            <td>Preguntas rápidas</td>
+            <td>${quizScore}/${questions.length}</td>
+          </tr>
+          <tr>
+            <td>Construcción del Canvas</td>
+            <td>${phase2Score}/${phase2Cards.length}</td>
+          </tr>
+          <tr>
+            <td>Corrección del Canvas</td>
+            <td>${phase3Score}/${phase3Placements.length}</td>
+          </tr>
+          <tr>
+            <td>Pregunta competencial</td>
+            <td>${ebauScore}/2</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="box">
+        <h2>Retroalimentación formativa</h2>
+        <p><strong>Diagnóstico:</strong> ${diagnosis}</p>
+        <p><strong>Cómo mejorar:</strong> ${advice}</p>
+      </div>
+
+      <p class="footer">
+        Documento generado automáticamente por el reto Business Model Canvas.
+      </p>
+
+      <script>
+        window.onload = function() {
+          window.print();
+        }
+      <\/script>
+    </body>
+    </html>
+  `);
+
+  printWindow.document.close();
 }
 </script>
 
